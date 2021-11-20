@@ -1,0 +1,26 @@
+<html>
+<body>
+    <h2>Socket Example</h2>
+    <div id="connection">
+    </div>
+    <div id="data"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://localhost:3000');
+        socket.on('connect', function (data) {
+            console.log("connected")
+            const connDiv = document.getElementById("connection");
+            const p = document.createElement('p');
+            p.innerText = "connection established"
+            connDiv.appendChild(p)
+        });
+        let dataDiv = document.getElementById("data");
+        socket.on("data", (data) => {
+            console.log("new data", data)
+            console.log("dataDiv", dataDiv.innerText)
+            dataDiv.innerText = dataDiv.innerText + data
+            console.log("after dataDiv", dataDiv.innerText)
+        })
+    </script>
+</body>
+</html>
